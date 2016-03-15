@@ -1,25 +1,44 @@
-# docker-postgrest
+# Docker PostgREST
 
-postgrest Docker Image
+[![Go to Docker Hub](https://img.shields.io/badge/Docker%20Hub-%E2%86%92-blue.svg)](https://hub.docker.com/r/suzel/docker-postgrest/)
 
-env vars
+PostgREST serves a fully RESTful API from any existing PostgreSQL database.
+It provides a cleaner, more standards-compliant, faster API than you are likely to write from scratch.
 
-DBHOST
+## Installation
 
-DBNAME
+The easiest way to get this docker image installed is to pull the latest version from the Docker registry:
 
-DBPORT
+```
+$ docker pull suzel/docker-postgrest
+```
 
-DBUSER
+Build the docker-postgrest:
 
-DBPASS
+```sh
+$ git clone https://github.com/suzel/docker-postgrest.git
+$ cd docker-postgrest/
+$ docker build -t suzel/docker-postgrest .
+```
 
-DBPOOL
+## Usage
 
-PORT
+Start your image binding external port 3000 in all interfaces to your container:
 
-V1SCHEMA
+```sh
+$ docker run --name postgrest-service \
+             -p 3000:3000 \
+             -e POSTGREST_VERSION=0.3.0.3 \
+             -e POSTGREST_DBHOST=localhost \
+             -e POSTGREST_DBPORT=5432 \
+             -e POSTGREST_DBNAME=database1 \
+             -e POSTGREST_DBUSER=user \
+             -e POSTGREST_DBPASS=password \
+             -d suzel/docker-postgrest
+```
 
-ANONUSER
+You can the visit the following URL in a browser on your host machine to get started:
 
-SLEEP
+```
+open http://$(docker-machine ip default):3000/<database_table>
+```
